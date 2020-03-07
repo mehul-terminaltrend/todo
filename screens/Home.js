@@ -5,7 +5,7 @@ import {
   Image,
   TextInput,
   View,
-  StatusBar,
+  StatusBar,CheckBox,
   Button,
   ScrollView,
   Text,
@@ -42,9 +42,10 @@ export default class Home extends React.Component {
             <View style={styles.row}>
               <AddTodo
                 onAdd={todo => {
+                  console.log(todo.concat(this.state.todo))
                   this.setState({addingTodo: false});
-                  this.setState({todo : this.state.todo.concat(todo)})
-                  this.setState(todo => ({ todo: this.state.todo.concat(todo) }))
+                  this.setState({todo : todo})
+                  
 
                 }}
                 todo={this.state.todo}
@@ -53,8 +54,32 @@ export default class Home extends React.Component {
               />
             </View>
           ) : null}
-        </ScrollView>
+        <View
+        style={{
+          flex: 1,
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingRight: 10,
+          paddingBottom: 5,
+          paddingTop: 50,
+        }}>
+        <CheckBox checked={'false'} onPress={() => this.setStateUtil('completed', !this.state.todo.completed)} />
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            paddingLeft: 25,
+          }}>
+            <Text>{this.state.todo.title}</Text>
+        </View>
+      </View>
 
+        </ScrollView>
+        
+          
+        
       {/* logout button */}
         <TouchableOpacity
           style={styles.button}
